@@ -1,5 +1,6 @@
 import time
 import RPi.GPIO as GPIO
+
 A = 31
 B = 32
 C = 33
@@ -7,10 +8,10 @@ D = 35
 delay = 0.5
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
-GPIO.setup(A,GPIO.OUT)
-GPIO.setup(B,GPIO.OUT)
-GPIO.setup(C,GPIO.OUT)
-GPIO.setup(D,GPIO.OUT)
+GPIO.setup(A, GPIO.OUT)
+GPIO.setup(B, GPIO.OUT)
+GPIO.setup(C, GPIO.OUT)
+GPIO.setup(D, GPIO.OUT)
 while True:
     GPIO.output(A, GPIO.LOW)
     GPIO.output(B, GPIO.LOW)

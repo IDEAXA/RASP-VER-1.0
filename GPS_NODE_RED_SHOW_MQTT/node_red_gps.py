@@ -1,6 +1,17 @@
-import serial
+import json
 
+import serial
+import paho.mqtt.client as mqtt
 serial1 = serial.Serial("/dev/ttyUSB0", 9600, timeout=1)
+print("mqqt connecting")
+username = ""
+password = ""
+mq_client = "12werty"
+MQTT_client = mqtt.Client()
+MQTT_client.username_pw_set(username,password)
+MQTT_client.connect("192.168.43.39", port=1883)
+print("mqqt connected")
+
 while 1:
     a = str(serial1.readline())
     data = a.split(",")
@@ -23,6 +34,14 @@ while 1:
             latitude = str(format(latitude, '.6f'))
             longitude = str(format(longitude, '.6f'))
             speed = str(format(speed, '.1f'))
-            print(latitude, longitude, speed + "-Km/h")
+            #print(latitude, longitude, speed + "-Km/h")
+            data_gps = {
+                "name":"sachin",
+                "lat":latitude,
+                "lon":longitude,
+                "speed":speed
+            }
+            MQTT_client.publish(topic="gps", payload=json.dumps(data_gps), qos=0)
+            print(data_gps)
         if data[2] == "V":
             print("GPS data not Available..")
